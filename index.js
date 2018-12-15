@@ -62,7 +62,7 @@ const view = state => (
     <h1 className="f3 f1-ns ph3 ph1-ns tc light-yellow">
       {formatDiff(diffDate(state.secondsLeft))} til byggestart{" "}
       <i className="em-svg em-bullettrain_side" style="margin-right: 0.5em;" />
-      <i className="em-svg em-smile" />
+      <i className="em-svg em-smile" style="margin-right: 0.5em;" />
       <i className="em-svg em-railway_car" />
     </h1>
   </div>
