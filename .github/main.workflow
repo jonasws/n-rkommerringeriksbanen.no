@@ -1,6 +1,6 @@
 workflow "Build and deploy on push" {
   on = "push"
-  resolves = ["Install dependencies"]
+  resolves = ["Invalidate Cloudfront distribution"]
 }
 
 action "Install dependencies" {
