@@ -59,8 +59,10 @@ const actions = {
 
 const view = state => (
   <div class="vh-100 flex justify-center items-center">
-    <h1 class="f-headline tc light-yellow">
-      {formatDiff(diffDate(state.secondsLeft))} til byggestart :)
+    <h1 class="f3 f1-ns ph3 ph1-ns tc light-yellow">
+      {formatDiff(diffDate(state.secondsLeft))} til byggestart{" "}
+      <i class="em-svg em-bullettrain_side" style="margin-right: 0.5em;" />
+      <i class="em-svg em-smile" />
     </h1>
   </div>
 );
