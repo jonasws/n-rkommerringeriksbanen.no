@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "parcel index.html",
+    "start": "parcel index.html",
     "build": "parcel build index.html",
     "deploy": "aws s3 cp --recursive ./dist s3://naarkommerringeriksbanen-prod-s3bucket-1g6prwtitfqjx",
     "invalidate-cloudfront": "aws cloudfront create-invalidation --distribution-id E1FG7BN4IOA6V7 --paths /index.html"
