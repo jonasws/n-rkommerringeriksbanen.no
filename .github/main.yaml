@@ -1,0 +1,21 @@
+name: Build and deploy on push
+
+on: [push]
+
+jobs:
+  build:
+    name: Build and deploy to S3/Cloudfront
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install
+      - run: npm run-script build
+
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - run: aws s3 cp --recursive ./dist s3://naarkommerringeriksbanen-prod-s3bucket-1g6prwtitfqjx
+      - run: aws cloudfront create-invalidation --distribution-id E1FG7BN4IOA6V7 --paths /index.html
