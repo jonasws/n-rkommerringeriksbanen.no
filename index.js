@@ -47,7 +47,7 @@ function formatDiff({ years, days, hours, minutes, seconds }) {
   return str.replace(/^og\ /, "").replace(/,\ $/, "");
 }
 
-const byggestartDato = new Date(2021, 0, 1);
+const byggestartDato = new Date(2022, 0, 1);
 const today = new Date();
 
 const state = {
