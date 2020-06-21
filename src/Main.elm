@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Html exposing (Html, div, h1, i, text)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, style)
 import Time
 
 
@@ -144,6 +144,19 @@ formatDiffMessage diffString =
     diffString ++ " til byggestart "
 
 
+viewIcon : String -> Html Msg
+viewIcon iconName =
+    let
+        iconClass =
+            "em-" ++ iconName
+    in
+    i
+        [ class <| "em-svg " ++ iconClass
+        , style "margin-right" "0.5em"
+        ]
+        []
+
+
 view : Model -> Html Msg
 view remainingTime =
     div [ class "vh-100 flex justify-center items-center" ]
@@ -153,9 +166,9 @@ view remainingTime =
                 |> dateDiffToString
                 |> formatDiffMessage
                 |> text
-            , i [ class "em-svg em-bullettrain_side" ] []
-            , i [ class "em-svg em-smile" ] []
-            , i [ class "em-svg em-railway_car" ] []
+            , viewIcon "bullettrain_side"
+            , viewIcon "smile"
+            , viewIcon "railway_car"
             ]
         ]
 
