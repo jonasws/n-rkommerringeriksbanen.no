@@ -8,9 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-      - run: npm install
-      - run: npm run-script build
+      - uses: justgook/setup-elm@v1
+      - run: elm make src/Main.elm --output=build/main.js
+
+      - run: mkdir dist/ && cp -r build/ dist/build && cp index.html dist/
 
       - uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -20,4 +21,5 @@ jobs:
 
       - name: Deploy bundle to S3 bucket
         run: aws s3 cp --recursive ./dist s3://naarkommerringeriksbanen-prod-s3bucket-1g6prwtitfqjx
+      - run: aws cloudfront create-invalidation --distribution-id E1FG7BN4IOA6V7 --paths /index.html
       - run: aws cloudfront create-invalidation --distribution-id E1FG7BN4IOA6V7 --paths /index.html
