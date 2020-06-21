@@ -70,7 +70,7 @@ secondsToDateDiff diffSeconds =
             divideWithRemainder remainingHours secondsPerHour
 
         ( minutes, remainingSeconds ) =
-            divideWithRemainder remainingMinutes secondsPerHour
+            divideWithRemainder remainingMinutes secondsPerMinute
     in
     DateDiff years days hours minutes remainingSeconds
 
