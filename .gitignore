@@ -3,3 +3,6 @@
 # Parcel directories
 /dist
 /.cache
+
+# Elm dependencies
+elm-stuff/
