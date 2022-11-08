@@ -18,29 +18,7 @@
       }
     </style>
   </head>
-  <body class="bg-dracula sans-serif">
-    <div id="app"></div>
-    <script type="text/javascript">
-      if (
-        location.hostname !== "localhost" &&
-        location.hostname.startsWith("www")
-      ) {
-        location.href = "https://nårkommerringeriksbanen.no";
-      }
-    </script>
-    <script src="./build/main.js"></script>
-    <script>
-      const byggestartDato = new Date(2024, 0, 1);
-      const today = new Date();
-
-      const secondsLeft = Math.floor(
-        (byggestartDato.getTime() - today.getTime()) / 1000
-      );
-
-      const app = Elm.Main.init({
-        node: document.getElementById("app"),
-        flags: secondsLeft,
-      });
-    </script>
+  <body class="bg-dracula sans-serif vh-100 flex items-center justify-center">
+    <h1 class="f-headline light-yellow lh-solid white">Aldri</h1>
   </body>
 </html>

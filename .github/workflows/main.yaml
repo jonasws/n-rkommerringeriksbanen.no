@@ -8,12 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: jorelali/setup-elm@v3
-        with:
-          elm-version: 0.19.1
-      - run: elm make src/Main.elm --output=build/main.js
-
-      - run: mkdir dist/ && cp -r build/ dist/build && cp index.html dist/
+      - run: mkdir dist/ &&  cp index.html dist/
 
       - uses: aws-actions/configure-aws-credentials@v1
         with:
