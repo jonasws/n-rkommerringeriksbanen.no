@@ -1,0 +1,75 @@
+---
+// Target date for Ringeriksbanen construction start.
+// Update this when an official date is announced.
+const TARGET_DATE = "2033-01-01T00:00:00";
+---
+
+<div id="countdown" class="text-center px-4">
+  <p id="countdown-text" class="text-4xl md:text-6xl lg:text-7xl font-bold text-dracula-yellow leading-tight">
+    Aldri
+  </p>
+  <p class="mt-4 text-dracula-fg/60 text-lg">til byggestart 🚂</p>
+</div>
+
+<script define:vars={{ TARGET_DATE }}>
+  const target = new Date(TARGET_DATE);
+
+  function secondsToDateDiff(diffSeconds) {
+    const secondsPerMinute = 60;
+    const secondsPerHour = 60 * secondsPerMinute;
+    const secondsPerDay = 24 * secondsPerHour;
+    const secondsPerYear = 365 * secondsPerDay;
+
+    const years = Math.floor(diffSeconds / secondsPerYear);
+    const afterYears = diffSeconds % secondsPerYear;
+    const days = Math.floor(afterYears / secondsPerDay);
+    const afterDays = afterYears % secondsPerDay;
+    const hours = Math.floor(afterDays / secondsPerHour);
+    const afterHours = afterDays % secondsPerHour;
+    const minutes = Math.floor(afterHours / secondsPerMinute);
+    const seconds = afterHours % secondsPerMinute;
+
+    return { years, days, hours, minutes, seconds };
+  }
+
+  function pluralize(singular, plural, count) {
+    if (count === 0) return "";
+    if (count === 1) return `1 ${singular}`;
+    return `${count} ${plural}`;
+  }
+
+  function formatDiff(diffSeconds) {
+    if (diffSeconds <= 0) return "Aldri";
+
+    const { years, days, hours, minutes, seconds } =
+      secondsToDateDiff(diffSeconds);
+
+    const parts = [
+      pluralize("år", "år", years),
+      pluralize("dag", "dager", days),
+      pluralize("time", "timer", hours),
+      pluralize("minutt", "minutter", minutes),
+      pluralize("sekund", "sekunder", seconds),
+    ].filter(Boolean);
+
+    if (parts.length === 0) return "Aldri";
+    if (parts.length === 1) return parts[0];
+
+    const last = parts[parts.length - 1];
+    const rest = parts.slice(0, -1).join(", ");
+    return `${rest} og ${last}`;
+  }
+
+  function tick() {
+    const now = new Date();
+    const diffMs = target.getTime() - now.getTime();
+    const diffSeconds = Math.floor(diffMs / 1000);
+    const el = document.getElementById("countdown-text");
+    if (el) {
+      el.textContent = formatDiff(diffSeconds);
+    }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>

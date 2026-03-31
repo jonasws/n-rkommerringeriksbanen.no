@@ -2,21 +2,53 @@ name: Build and deploy on push
 
 on: [push]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
-    name: Build and deploy to S3/Cloudfront
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: mkdir dist/ &&  cp index.html dist/
+      - uses: actions/checkout@v4
 
-      - uses: aws-actions/configure-aws-credentials@v1
+      - uses: actions/setup-node@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  deploy:
+    name: Deploy to S3/CloudFront
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Download dist
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::773267502219:role/github-actions-ringeriksbanen
           aws-region: us-east-1
 
-      - name: Deploy bundle to S3 bucket
-        run: aws s3 cp --recursive ./dist s3://naarkommerringeriksbanen-prod-s3bucket-1g6prwtitfqjx
-      - run: aws cloudfront create-invalidation --distribution-id E1FG7BN4IOA6V7 --paths /index.html
-      - run: aws cloudfront create-invalidation --distribution-id E1FG7BN4IOA6V7 --paths /build/main.js
+      - name: Deploy to S3
+        run: aws s3 sync ./dist s3://naarkommerringeriksbanen-prod-s3bucket-1g6prwtitfqjx --delete
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id E1FG7BN4IOA6V7 --paths "/*"

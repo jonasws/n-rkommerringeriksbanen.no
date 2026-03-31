@@ -1,3 +1,10 @@
+# Astro
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
+# Elm (legacy)
 /elm-stuff
 /build
-/dist
