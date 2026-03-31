@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dracula-bg: #282a36;
+  --color-dracula-current: #44475a;
+  --color-dracula-fg: #f8f8f2;
+  --color-dracula-yellow: #f1fa8c;
+  --color-dracula-cyan: #8be9fd;
+  --color-dracula-purple: #bd93f9;
+  --color-dracula-green: #50fa7b;
+  --color-dracula-orange: #ffb86c;
+}

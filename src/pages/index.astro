@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Countdown from "../components/Countdown.astro";
+import Nav from "../components/Nav.astro";
+---
+
+<BaseLayout>
+  <div class="flex flex-col min-h-screen">
+    <header class="pt-6">
+      <Nav />
+    </header>
+
+    <main class="flex-1 flex items-center justify-center">
+      <Countdown />
+    </main>
+
+    <footer class="pb-6 text-center text-dracula-fg/40 text-xs">
+      <p>Ringeriksbanen • jernbane mellom Oslo og Hønefoss</p>
+    </footer>
+  </div>
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+const links = [
+  { href: "/", label: "Hjem" },
+  { href: "/om", label: "Om prosjektet" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="flex justify-center gap-6 py-4 text-sm text-dracula-fg/60">
+  {
+    links.map(({ href, label }) => (
+      <a
+        href={href}
+        class:list={[
+          "hover:text-dracula-yellow transition-colors",
+          { "text-dracula-yellow font-semibold": currentPath === href },
+        ]}
+      >
+        {label}
+      </a>
+    ))
+  }
+</nav>
