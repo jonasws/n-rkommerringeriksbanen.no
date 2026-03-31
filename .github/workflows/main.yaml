@@ -47,8 +47,21 @@ jobs:
           role-to-assume: arn:aws:iam::773267502219:role/github-actions-ringeriksbanen
           aws-region: us-east-1
 
-      - name: Deploy to S3
-        run: aws s3 sync ./dist s3://naarkommerringeriksbanen-prod-s3bucket-1g6prwtitfqjx --delete
+      - name: Deploy hashed assets to S3
+        run: |
+          aws s3 sync ./dist/_astro s3://naarkommerringeriksbanen-prod-s3bucket-1g6prwtitfqjx/_astro \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable"
+
+      - name: Deploy HTML and other assets to S3
+        run: |
+          aws s3 sync ./dist s3://naarkommerringeriksbanen-prod-s3bucket-1g6prwtitfqjx \
+            --delete \
+            --exclude "_astro/*" \
+            --cache-control "no-cache, must-revalidate"
 
       - name: Invalidate CloudFront cache
-        run: aws cloudfront create-invalidation --distribution-id E1FG7BN4IOA6V7 --paths "/*"
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E1FG7BN4IOA6V7 \
+            --paths "/" "/index.html" "/om/" "/om/index.html" "/favicon.svg"
