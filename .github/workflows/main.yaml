@@ -2,6 +2,10 @@ name: Build and deploy on push
 
 on: [push]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
     name: Build
@@ -40,8 +44,7 @@ jobs:
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::773267502219:role/github-actions-ringeriksbanen
           aws-region: us-east-1
 
       - name: Deploy to S3
