@@ -22,7 +22,7 @@ export default function AboutContent() {
         </Text>
 
         <Text as="h2" fontSize="2xl" fontWeight="semibold" mt={10} mb={4} color="text.secondary">
-          Status (2025)
+          Status (2026)
         </Text>
 
         <Text>
