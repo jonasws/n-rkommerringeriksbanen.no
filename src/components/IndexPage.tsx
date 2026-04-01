@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, SporProvider, Text, VStack } from "@vygruppen/spor-react";
 import Nav from "./Nav";
-import AprilFoolsBanner from "./AprilFoolsBanner";
 
 interface IndexPageProps {
   currentPath: string;
@@ -27,7 +26,6 @@ export default function IndexPage({ currentPath }: IndexPageProps) {
               Prosjektet er i planleggingsfasen. Stortinget har ikke vedtatt finansiering, og det
               foreligger ingen bekreftet dato for byggestart.
             </Text>
-            <AprilFoolsBanner />
           </VStack>
         </Box>
 
