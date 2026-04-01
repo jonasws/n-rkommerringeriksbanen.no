@@ -1,81 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Nav from "../components/Nav.astro";
+import AboutPage from "../components/AboutPage.tsx";
+
+const currentPath = Astro.url.pathname;
 ---
 
 <BaseLayout
   title="Om prosjektet – Når kommer Ringeriksbanen?"
   description="Bakgrunn og informasjon om Ringeriksbanen"
 >
-  <div class="flex flex-col min-h-screen">
-    <header class="pt-6">
-      <Nav />
-    </header>
-
-    <main class="flex-1 max-w-2xl mx-auto px-6 py-16">
-      <h1 class="text-4xl font-bold text-dracula-yellow mb-8">
-        Om Ringeriksbanen
-      </h1>
-
-      <div class="space-y-6 text-dracula-fg/80 leading-relaxed">
-        <p>
-          Ringeriksbanen er en planlagt jernbane mellom Sandvika og Hønefoss.
-          Banen vil korte ned reisetiden mellom Oslo og Bergen med omtrent én
-          time, og gi en ny og raskere forbindelse til Ringerike.
-        </p>
-
-        <p>
-          Prosjektet har vært planlagt i flere tiår og har gjennomgått
-          tallrike utredninger, konsekvensanalyser og politiske behandlinger.
-          Nye Veier overtok planlegging og bygging i 2021.
-        </p>
-
-        <h2 class="text-2xl font-semibold text-dracula-purple mt-10 mb-4">
-          Status (2025)
-        </h2>
-
-        <p>
-          Prosjektet er i planleggingsfasen. Stortinget har ikke vedtatt
-          finansiering, og det foreligger ingen bekreftet dato for byggestart.
-          Ringeriksbanen inngår i Nasjonal transportplan frem til 2033, men
-          dette innebærer ikke at bygging vil starte innen den tid.
-        </p>
-
-        <h2 class="text-2xl font-semibold text-dracula-purple mt-10 mb-4">
-          Nøkkelfakta
-        </h2>
-
-        <ul class="space-y-2 list-none">
-          <li class="flex gap-3">
-            <span class="text-dracula-cyan">→</span>
-            <span>Strekning: Jong (Sandvika) – Hønefoss (ca. 40 km)</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-dracula-cyan">→</span>
-            <span>23 km tunnel mellom Sandvika og Sundvollen</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-dracula-cyan">→</span>
-            <span>3 km tunnel mellom Hole og Hønefoss</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-dracula-cyan">→</span>
-            <span>Nye stasjoner: Sundvollen og oppgradert Hønefoss</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-dracula-cyan">→</span>
-            <span>Reduserer reisetiden Oslo–Bergen med ~60 minutter</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-dracula-cyan">→</span>
-            <span>Finansiering ikke vedtatt av Stortinget</span>
-          </li>
-        </ul>
-      </div>
-    </main>
-
-    <footer class="pb-6 text-center text-dracula-fg/40 text-xs">
-      <p>Ringeriksbanen • jernbane mellom Oslo og Hønefoss</p>
-    </footer>
-  </div>
+  <AboutPage currentPath={currentPath} client:only="react" />
 </BaseLayout>
